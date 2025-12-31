@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Happy New Year Dear | </title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:100%; height:100%; overflow-x:hidden; position:relative; }
+body { background: linear-gradient(135deg, #000428, #004e92); color:white; font-family:'Arial',sans-serif; min-height:100vh; }
+#fireworksCanvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:1; pointer-events:none; }
+.container { position:relative; z-index:2; text-align:center; padding:10px; width:100%; max-width:100%; margin:0 auto; padding-bottom:100px; } /* footer-এর জন্য স্পেস */
+.zoo-header { background: rgba(0,122,61,0.95); padding:12px; border-radius:8px; margin:12px auto; width:96%; border:2px solid #FFD700; box-shadow:0 0 10px rgba(255,215,0,0.6); }
+.zoo-header h2 { color:#FFD700; font-size:1.3rem; margin-bottom:5px; }
+.zoo-header p { font-size:0.85rem; }
+.happy-new-year { font-size:5.8rem; font-weight:bold; color:#FFD700; text-shadow:0 0 12px #ff0000; animation:glow 3s infinite alternate; margin:15px 5px 5px; line-height:1.2; word-break:break-word; padding:0 5px; }
+.maam-text { font-size:5.8rem; color:#ff6b6b; text-shadow:0 0 8px #ff0000; animation:bounce 2s infinite; margin:0px 5px 40px; line-height:1.2; word-break:break-word; padding:0 5px; }
+
+.wishes-container { background: rgba(206,17,38,0.95); padding:12px 8px; border-radius:10px; margin:60px auto 30px; width:98%; border:2px solid #FFD700; box-sizing:border-box; }
+.wishes-title { font-size:1.4rem; color:#FFD700; margin-bottom:10px; line-height:1.2; padding:0 5px; }
+.wishes-list { list-style:none; font-size:0.95rem; line-height:1.4; text-align:center; width:100%; padding:0; }
+.wishes-list li { margin:6px 0; padding:15px 5px 0; position:relative; text-align:center; box-sizing:border-box; width:100%; }
+.wishes-list li::before { content:"✨"; position:absolute; left:50%; top:0; transform:translateX(-50%); font-size:1rem; color:#FFD700; }
+.kuwaiti-touch { background: rgba(255,215,0,0.95); color:#007A3D; padding:10px; border-radius:8px; margin:30px auto; width:96%; font-size:0.9rem; font-weight:bold; border:2px solid #CE1126; line-height:1.3; box-sizing:border-box; }
+
+.video-section { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 30px; 
+  margin: 40px auto; 
+  width: 96%; 
+  align-items: center;
+}
+.video-box, .arabic-box { 
+  width: 100%; 
+  max-width: 600px; 
+}
+.video-box { 
+  background: rgba(206,17,38,0.95); 
+  padding: 15px; 
+  border-radius: 10px; 
+  border: 2px solid #FFD700; 
+  box-shadow: 0 0 15px rgba(255,215,0,0.6); 
+  position: relative; 
+}
+.video-box video { 
+  width: 100%; 
+  height: auto; 
+  border-radius: 8px; 
+  box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+}
+.unmute-btn { 
+  position: absolute; 
+  bottom: 20px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  background: #CE1126; 
+  color: white; 
+  border: none; 
+  padding: 8px 16px; 
+  border-radius: 50px; 
+  cursor: pointer; 
+  font-weight: bold; 
+  box-shadow: 0 0 10px rgba(255,215,0,0.8); 
+}
+
+/* Footer - আলাদা এবং নিচে */
+.footer { 
+  margin: 80px auto 30px;   /* উপরে বেশি স্পেস, নিচে কম */
+  padding: 12px; 
+  background: rgba(0,0,0,0.7); 
+  border-radius: 8px; 
+  font-size: 0.8rem; 
+  width: 96%; 
+  box-sizing: border-box; 
+  z-index: 10;
+  position: relative;
+}
+
+/* Pause Button - ছোট এবং bottom-right */
+.controls { 
+  position: fixed; 
+  bottom: 80px;   /* footer-এর উপরে থাকবে */
+  right: 15px; 
+  z-index: 100; 
+}
+.control-btn { 
+  background:#CE1126; 
+  color:white; 
+  border:none; 
+  padding:7px 12px;         /* ছোট padding */
+  border-radius:50px; 
+  cursor:pointer; 
+  font-weight:bold; 
+  box-shadow:0 0 8px rgba(255,215,0,0.9); 
+  transition:all 0.3s; 
+  font-size:0.75rem;        /* ছোট ফন্ট */
+}
+.control-btn:hover { 
+  background:#FFD700; 
+  color:#CE1126; 
+  transform:scale(1.1); 
+}
+
+@keyframes glow { 0%{text-shadow:0 0 8px #ff0000,0 0 15px #ff8800;} 50%{text-shadow:0 0 15px #00ff00,0 0 25px #008800;} 100%{text-shadow:0 0 8px #0000ff,0 0 15px #000088;} }
+@keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+
+@media (min-width:769px){ 
+  .zoo-header{padding:20px;} 
+  .happy-new-year{font-size:7rem;} 
+  .maam-text{font-size:4rem;margin-bottom:60px;} 
+  .wishes-container{padding:20px;margin:80px auto 40px;} 
+  .wishes-title{font-size:2rem;} 
+  .wishes-list{font-size:1.2rem;} 
+  .wishes-list li{margin:10px 0;} 
+  .kuwaiti-touch{padding:15px;font-size:1.1rem;} 
+  .footer{font-size:0.9rem;padding:15px; margin:100px auto 40px;} 
+  .control-btn{padding:8px 14px; font-size:0.8rem;} 
+  .video-section { gap: 50px; }
+  .controls { bottom: 100px; right: 20px; }
+}
+
+*{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+.big-spacer{ height:40px; }
+</style>
+</head>
+<body>
+<canvas id="fireworksCanvas"></canvas>
+<div class="container">
+<div class="zoo-header">
+<h2>🎪 A place where care, dedication, and passion come together</h2>
+<p>A place of care, joy, and togetherness.!</p>
+</div>
+<div class="happy-new-year">HAPPY NEW YEAR</div>
+<div class="maam-text">DEAR -N-A-M-E-! 💗🎀</div>
+<div class="big-spacer"></div>
+
+<div class="video-section">
+  <div class="video-box">
+    <video id="newYearVideo" autoplay loop muted playsinline>
+      <source src="https://raw.githubusercontent.com/James404-Cyber/New-Year/refs/heads/main/Videos/newyear2026.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <button class="unmute-btn" id="unmuteBtn">🔊 Unmute Video Sound</button>
+  </div>
+  
+  <div class="touch arabic-box">
+    🌙 «مِنْ قَلْبِ الكُوَيْتِ وَمِنْ أُسْرَةِ حَدِيقَةِ الحَيَوَانِ— مَدَامَتُنَا العَزِيزَة، تَكُونُ أَيَّامُكِ القَادِمَةُ مُبَارَكَةً وَمَلِيئَةً بِالفَرَحِ.»
+  </div>
+</div>
+
+<div class="wishes-container">
+<div class="wishes-title">🎁 My Heartfelt Wishes For You:</div>
+<ul class="wishes-list">
+<li>May 2026 bring you immense joy and success</li>
+<li>Wishing you excellent health and boundless energy</li>
+<li>May all your dreams come true</li>
+<li>Love and laughter in abundance</li>
+<li>A year as wonderful as you are! ✨</li>
+</ul>
+</div>
+<div class="-touch" style="background: rgba(0,122,61,0.95); color: #FFD700;">
+🐫 You're not just my love — you're my inspiration! Thank you again. Here's to an amazing 2026 !
+</div>
+
+<!-- Footer আলাদা -->
+<div class="footer">
+Made with ❤️ by Mr.James | 2026
+</div>
+</div>
+
+<!-- ছোট Pause Button - bottom-right -->
+<div class="controls">
+<button class="control-btn" id="fireworksBtn">⏸️ Pause</button>
+</div>
+
+<script>
+// Unmute Video
+const video = document.getElementById('newYearVideo');
+const unmuteBtn = document.getElementById('unmuteBtn');
+unmuteBtn.addEventListener('click', () => {
+    video.muted = false;
+    unmuteBtn.textContent = '🔊 Sound On!';
+    unmuteBtn.style.background = '#007A3D';
+});
+
+// Fireworks sound + script (আগের অপটিমাইজড ভার্সন)
+let soundEnabled = false;
+const sounds = {
+    launch: new Audio('https://orangefreesounds.com/wp-content/uploads/2021/06/Firework-launch-sound-effect.mp3'),
+    boom: new Audio('https://orangefreesounds.com/wp-content/uploads/2025/06/Powerful-pyrotechnic-explosion-sound-effect.mp3'),
+    crackle: new Audio('https://orangefreesounds.com/wp-content/uploads/2023/03/Fireworks-crackles-sound-effect.mp3')
+};
+Object.values(sounds).forEach(s => { s.volume = 0.4; s.preload='auto'; s.load(); });
+function playSound(sound){ if(!soundEnabled) return; sound.currentTime=0; sound.play().catch(()=>{}); }
+
+function enableSound() {
+    soundEnabled=true;
+    Object.values(sounds).forEach(s=>s.play().then(()=>s.pause()));
+}
+window.addEventListener('click', enableSound,{once:true});
+window.addEventListener('touchstart', enableSound,{once:true});
+
+const canvas=document.getElementById('fireworksCanvas');
+const ctx=canvas.getContext('2d');
+let fireworks=[],particles=[],isActive=true;
+function resizeCanvas(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+window.addEventListener('resize',resizeCanvas); resizeCanvas();
+
+const colorPalettes=[ { main:'#FFD700', trail:'#FFA500', innerSpark:'#FFFFFF', crackle:true },
+{ main:'#FFFFFF', trail:'#CCCCCC', innerSpark:'#FFD700', crackle:true },
+{ main:'#FF0000', trail:'#FF4500', innerSpark:'#FFFFFF', crackle:false },
+{ main:'#00FF00', trail:'#00FF99', innerSpark:'#FFFFFF', crackle:false },
+{ main:'#4169E1', trail:'#87CEEB', innerSpark:'#FFFFFF', crackle:false },
+{ main:'#FF00FF', trail:'#FF69B4', innerSpark:'#FFFFFF', crackle:true },
+{ main:'#FF8C00', trail:'#FF4500', innerSpark:'#FFFFFF', crackle:false }];
+function getRandomColor(){ return colorPalettes[Math.floor(Math.random()*colorPalettes.length)]; }
+
+class Firework{
+constructor(){ this.colors=getRandomColor(); this.x=Math.random()*canvas.width; this.y=canvas.height; this.targetY=Math.random()*(canvas.height*0.4)+100; this.speed=Math.random()*2+3; this.exploded=false; this.trail=[]; this.hasCrackle=this.colors.crackle; }
+update(){ 
+if(!this.exploded){ 
+    this.y-=this.speed; 
+    this.trail.push({x:this.x,y:this.y}); 
+    if(this.trail.length>25) this.trail.shift(); 
+    if(this.trail.length===1) playSound(sounds.launch); 
+    if(this.y<=this.targetY) this.explode(); 
+} }
+explode(){ 
+this.exploded=true; 
+playSound(sounds.boom); 
+if(this.hasCrackle) setTimeout(()=>playSound(sounds.crackle),150); 
+const count=Math.floor(Math.random()*80)+120;
+for(let i=0;i<count;i++){ const angle=(Math.PI*2/count)*i+Math.random()*0.1; const speed=Math.random()*4+2; particles.push(new Particle(this.x,this.y,this.colors.main,speed,angle,false)); } 
+for(let i=0;i<60;i++){ const angle=Math.random()*Math.PI*2; const speed=Math.random()*3+1.5; particles.push(new Particle(this.x,this.y,this.colors.innerSpark,speed,angle,true)); } 
+for(let i=0;i<50;i++){ const angle=Math.random()*Math.PI*2; const speed=Math.random()*6+4; particles.push(new Particle(this.x,this.y,this.colors.trail,speed,angle,true)); } 
+}
+draw(){ 
+if(this.trail.length>1){ ctx.beginPath(); ctx.moveTo(this.trail[0].x,this.trail[0].y); for(let i=1;i<this.trail.length;i++){ ctx.globalAlpha=i/this.trail.length; ctx.lineTo(this.trail[i].x,this.trail[i].y); } ctx.globalAlpha=1; ctx.strokeStyle=this.colors.trail; ctx.lineWidth=4; ctx.stroke(); } 
+if(!this.exploded){ ctx.save(); ctx.shadowBlur=25; ctx.shadowColor=this.colors.innerSpark; ctx.fillStyle=this.colors.innerSpark; ctx.beginPath(); ctx.arc(this.x,this.y,6,0,Math.PI*2); ctx.fill(); ctx.restore(); } 
+}
+}
+
+class Particle{
+constructor(x,y,color,speed,angle,isSpark=false){ this.x=x; this.y=y; this.color=color; this.speed=speed; this.angle=angle; this.alpha=1; this.friction=0.96; this.gravity=isSpark?0.05:0.09; this.size=isSpark?Math.random()*2+1:Math.random()*2.5+1.5; }
+update(){ this.speed*=this.friction; this.x+=Math.cos(this.angle)*this.speed; this.y+=Math.sin(this.angle)*this.speed+this.gravity; this.alpha-=0.015; }
+draw(){ ctx.save(); ctx.globalAlpha=this.alpha; ctx.shadowBlur=15; ctx.shadowColor=this.color; ctx.fillStyle=this.color; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); ctx.restore(); }
+}
+
+function animate(){
+ctx.fillStyle='rgba(0,4,40,0.25)'; ctx.fillRect(0,0,canvas.width,canvas.height);
+if(isActive){
+for(let i=fireworks.length-1;i>=0;i--){ fireworks[i].update(); fireworks[i].draw(); if(fireworks[i].exploded) fireworks.splice(i,1); }
+for(let i=particles.length-1;i>=0;i--){ particles[i].update(); particles[i].draw(); if(particles[i].alpha<=0) particles.splice(i,1); }
+}
+requestAnimationFrame(animate);
+}
+
+setInterval(()=>{ if(isActive && fireworks.length<5) fireworks.push(new Firework()); },1000);
+setTimeout(()=>{ for(let i=0;i<5;i++) setTimeout(()=>fireworks.push(new Firework()),i*300); },1000);
+animate();
+
+document.getElementById('fireworksBtn').addEventListener('click',()=>{
+isActive=!isActive;
+document.getElementById('fireworksBtn').textContent=isActive?'⏸️ Pause':'▶️ Resume';
+});
+
+canvas.addEventListener('click', e=>{ const fw=new Firework(); fw.x=e.clientX; fw.y=e.clientY+100; fw.targetY=e.clientY-100; fw.speed=9; fireworks.push(fw); });
+canvas.addEventListener('touchstart', e=>{ e.preventDefault(); const touch=e.touches[0]; const fw=new Firework(); fw.x=touch.clientX; fw.y=touch.clientY+100; fw.targetY=touch.clientY-100; fw.speed=9; fireworks.push(fw); });
+
+console.log("🎆 Final optimized version 0.9!");
+</script>
+</body>
+</html>
